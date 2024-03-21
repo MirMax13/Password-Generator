@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const routes = require('./routes'); // Import routes from routes.js
 
 const app = express();
+app.use(bodyParser.json());
 const port = 3000;
 
 // Налаштування шаблонізатора та шляхів для статичних файлів
