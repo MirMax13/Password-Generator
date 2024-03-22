@@ -8,6 +8,7 @@ const passwordGenerateSchema = new mongoose.Schema({
     includeNumbers: Boolean,
     includeSymbols: Boolean,
     length: Number,
+    letters: String,
 });
 
 const PasswordGenerateModel = mongoose.model('PasswordGenerate', passwordGenerateSchema);

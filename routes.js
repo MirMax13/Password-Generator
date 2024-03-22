@@ -28,20 +28,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/passwords', async(req, res) => {
-  // fs.readFile(filePath, 'utf8', (err, fileData) => {
-  //   if (err) {
-  //     console.error('Error reading passwords.json:', err);
-  //     res.status(500).send('Failed to retrieve passwords');
-  //   } else {
-  //     try {
-  //       const passwords = JSON.parse(fileData);
-  //       res.json(passwords);
-  //     } catch (err) {
-  //       console.error('Error parsing passwords.json:', err);
-  //       res.status(500).send('Failed to parse passwords');
-  //     }
-  //   }
-  // });
   try {
     const passwords = await  PasswordSaveModel.find({});
     res.json(passwords);
@@ -49,21 +35,30 @@ router.get('/passwords', async(req, res) => {
     res.status(500).send('Помилка отримання списку GIFs');
   }
 });
-// Route for handling password generation
 
+// Route for handling password generation
 router.post('/generate', (req, res) => {
   try {
     const {length, includeLatinUppercase, includeLatinLowercase,
-    includeNumbers,includeSymbols, includeCyrillicUppercase,includeCyrillicLowercase } = req.body;
-    const options = new PasswordGenerateModel({
-        includeLatinUppercase: includeLatinUppercase,
-        includeLatinLowercase: includeLatinLowercase,
-        includeCyrillicUppercase: includeCyrillicUppercase,
-        includeCyrillicLowercase: includeCyrillicLowercase,
-        includeNumbers: includeNumbers,
-        includeSymbols: includeSymbols,
+    includeNumbers,includeSymbols, includeCyrillicUppercase,includeCyrillicLowercase,letters} = req.body;
+    let options = {};
+    if (letters){
+      options = new PasswordGenerateModel({
+        letters: letters,
         length: length,
-    });
+      });
+    }else{
+      options = new PasswordGenerateModel({
+      includeLatinUppercase: includeLatinUppercase,
+      includeLatinLowercase: includeLatinLowercase,
+      includeCyrillicUppercase: includeCyrillicUppercase,
+      includeCyrillicLowercase: includeCyrillicLowercase,
+      includeNumbers: includeNumbers,
+      includeSymbols: includeSymbols,
+      length: length,
+      });
+    }
+    
     const password = passwordGenerator.generatePassword(length, options);
     const response = {
       password,
@@ -73,6 +68,25 @@ router.post('/generate', (req, res) => {
     res.status(201).json(response);
     
   } catch (error) {
+    res.status(500).send('Error generating password.');
+  }
+});
+
+router.post('/generate-custom', (req, res) => {
+  try{
+    const {length,letters} = req.body;
+    const options = new PasswordGenerateModel({
+      letters: letters,
+      length: length,
+  });
+  const password = passwordGenerator.generatePassword(length, options);
+    const response = {
+      password,
+      message: 'Password successfully generated.'
+    };
+
+    res.status(201).json(response);
+  }catch (error) {
     res.status(500).send('Error generating password.');
   }
 });
