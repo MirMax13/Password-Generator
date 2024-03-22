@@ -109,4 +109,13 @@ router.post('/save', async(req, res) => {
   }
 });
 
+router.delete('/password/:id', async(req, res) => {
+  try {
+    const id = req.params.id;
+    await PasswordSaveModel.findByIdAndDelete(id);
+    res.status(200).send('Password successfully deleted.');
+  } catch (error) {
+    res.status(500).send('Error deleting password.');
+  }
+});
 module.exports = router;
