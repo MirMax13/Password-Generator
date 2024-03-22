@@ -15,19 +15,34 @@ const filePath = path.join(uploadsPath, 'passwords.json');
 if (!fs.existsSync(path.join(uploadsPath, 'passwords.json'))) {
   fs.writeFileSync(path.join(uploadsPath, 'passwords.json'), '[]', 'utf8');
 }
-try {
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  if (fileContent.trim() === '') {
-      fs.writeFileSync(filePath, '[]', 'utf8');
-  }
-} catch (error) {
-  //console.error('Помилка при роботі з файлом passwords.json:', error);
+fileContent = fs.readFileSync(filePath, 'utf8');
+if (fileContent.trim() === '') {
+  fs.writeFileSync(filePath, '[]', 'utf8');
 }
+
 // Route for serving the input HTML page
 router.get('/', (req, res) => {
     res.render('input'); // Render the input.html template
 });
+
+router.get('/passwords', (req, res) => {
+  fs.readFile(filePath, 'utf8', (err, fileData) => {
+    if (err) {
+      console.error('Error reading passwords.json:', err);
+      res.status(500).send('Failed to retrieve passwords');
+    } else {
+      try {
+        const passwords = JSON.parse(fileData);
+        res.json(passwords);
+      } catch (err) {
+        console.error('Error parsing passwords.json:', err);
+        res.status(500).send('Failed to parse passwords');
+      }
+    }
+  });
+});
 // Route for handling password generation
+
 router.post('/generate', (req, res) => {
     const length = req.body.length || 10; // Довжина пароля за замовчуванням - 10
     const options = {
@@ -46,8 +61,6 @@ router.post('/generate', (req, res) => {
 router.post('/save', (req, res) => {
     const password = req.body.password;
     const using = req.body.using || 'Unknown';
-    
-
     // Спочатку прочитайте поточний вміст файлу, якщо він існує
     let existingPasswords = [];
     if (fs.existsSync(filePath)) {

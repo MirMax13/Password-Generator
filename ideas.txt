@@ -1,6 +1,7 @@
 Python Server 5
 MongoDB Database for passwords 7
 Frontend Input 6
-Passwords Output 9
+Passwords Output 9 +
 Password Deletion 8
     How to do deleting?
+Password Model 7
