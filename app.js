@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes'); // Import routes from routes.js
@@ -6,6 +7,19 @@ const routes = require('./routes'); // Import routes from routes.js
 const app = express();
 app.use(bodyParser.json());
 const port = 3000;
+
+
+// Підключення до бази даних MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/mydatabase', {
+});
+
+const db = mongoose.connection;
+
+// Обробка помилок підключення до MongoDB
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', async () => {
+  console.log('Connected to MongoDB');
+});
 
 // Налаштування шаблонізатора та шляхів для статичних файлів
 app.set('view engine', 'ejs');

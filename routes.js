@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const passwordGenerator = require('./passwordGenerator');
 
+const PasswordSaveModel = require('./PasswordSaveModel');
+const PasswordGenerateModel = require('./PasswordGenerateModel');
 
 const uploadsPath = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsPath)) {
@@ -25,61 +27,72 @@ router.get('/', (req, res) => {
     res.render('input'); // Render the input.html template
 });
 
-router.get('/passwords', (req, res) => {
-  fs.readFile(filePath, 'utf8', (err, fileData) => {
-    if (err) {
-      console.error('Error reading passwords.json:', err);
-      res.status(500).send('Failed to retrieve passwords');
-    } else {
-      try {
-        const passwords = JSON.parse(fileData);
-        res.json(passwords);
-      } catch (err) {
-        console.error('Error parsing passwords.json:', err);
-        res.status(500).send('Failed to parse passwords');
-      }
-    }
-  });
+router.get('/passwords', async(req, res) => {
+  // fs.readFile(filePath, 'utf8', (err, fileData) => {
+  //   if (err) {
+  //     console.error('Error reading passwords.json:', err);
+  //     res.status(500).send('Failed to retrieve passwords');
+  //   } else {
+  //     try {
+  //       const passwords = JSON.parse(fileData);
+  //       res.json(passwords);
+  //     } catch (err) {
+  //       console.error('Error parsing passwords.json:', err);
+  //       res.status(500).send('Failed to parse passwords');
+  //     }
+  //   }
+  // });
+  try {
+    const passwords = await  PasswordSaveModel.find({});
+    res.json(passwords);
+  } catch (error) {
+    res.status(500).send('Помилка отримання списку GIFs');
+  }
 });
 // Route for handling password generation
 
 router.post('/generate', (req, res) => {
-    const length = req.body.length || 10; // Довжина пароля за замовчуванням - 10
-    const options = {
-      includeLatinUppercase: req.body.includeLatinUppercase || false,
-      includeLatinLowercase: req.body.includeLatinLowercase || false,
-      includeCyrillicUppercase: req.body.includeCyrillicUppercase || false,
-      includeCyrillicLowercase: req.body.includeCyrillicLowercase || false,
-      includeNumbers: req.body.includeNumbers || false,
-      includeSymbols: req.body.includeSymbols || false
-  };
+  try {
+    const {length, includeLatinUppercase, includeLatinLowercase,
+    includeNumbers,includeSymbols, includeCyrillicUppercase,includeCyrillicLowercase } = req.body;
+    const options = new PasswordGenerateModel({
+        includeLatinUppercase: includeLatinUppercase,
+        includeLatinLowercase: includeLatinLowercase,
+        includeCyrillicUppercase: includeCyrillicUppercase,
+        includeCyrillicLowercase: includeCyrillicLowercase,
+        includeNumbers: includeNumbers,
+        includeSymbols: includeSymbols,
+        length: length,
+    });
     const password = passwordGenerator.generatePassword(length, options);
-    res.json({ password });
+    const response = {
+      password,
+      message: 'Password successfully generated.'
+    };
+
+    res.status(201).json(response);
+    
+  } catch (error) {
+    res.status(500).send('Error generating password.');
+  }
 });
 
 // Route for handling password saving (implement logic here)
-router.post('/save', (req, res) => {
+router.post('/save', async(req, res) => {
+  try {
     const password = req.body.password;
-    const using = req.body.using || 'Unknown';
-    // Спочатку прочитайте поточний вміст файлу, якщо він існує
-    let existingPasswords = [];
-    if (fs.existsSync(filePath)) {
-        existingPasswords = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    }
+    const usage = req.body.usage || 'Unknown';
 
-    // Додайте новий пароль до списку
-    existingPasswords.push({ password, using});
-
-    // Запишіть оновлений список у файл
-    fs.writeFile(filePath, JSON.stringify(existingPasswords), err => {
-        if (err) {
-            console.error('Failed to save password:', err);
-            res.status(500).send('Failed to save password');
-        } else {
-            console.log('Password saved successfully!');
-            res.send('Password saved successfully!');
-        }
+    const new_password = new PasswordSaveModel({
+      password: password,
+      usage: usage,
     });
+    await new_password.save();
+
+    res.status(201).send('Password successfully uploaded and saved to the database.');
+  } catch (error) {
+    res.status(500).send('Error saving password to the database.');
+  }
 });
 
 module.exports = router;

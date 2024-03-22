@@ -7,10 +7,10 @@ function generatePassword(length, options) {
     if (options.includeCyrillicUppercase) charset += 'АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ';
     if (options.includeCyrillicLowercase) charset += 'абвгдеєжзиіїйклмнопрстуфхцчшщьюя';
     if (options.includeNumbers) charset += '0123456789';
-    if (options.includeSymbols) charset += '!@#$%^&*()-_=+[]{}|;:,.<>?';
+    if (options.includeSymbols) charset += '/?&<>!@#$%^*()-_=+[]{}|;:,.<>';
 
     for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length-1);
+        const randomIndex = Math.floor(Math.random() * charset.length);
         password += charset[randomIndex];
     }
     return password;

@@ -1,7 +1,9 @@
 Python Server 5
-MongoDB Database for passwords 7
+MongoDB Database for passwords 7 +
+    Save Password to db +
 Frontend Input 6
 Passwords Output 9 +
 Password Deletion 8
-    How to do deleting?
-Password Model 7
+    How to do deleting? By ID
+Password Model 7 +
+Undefined bug 9 +
