@@ -4,33 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
-    <script src="/public/script.js"></script>
     <link rel="stylesheet" href="/public/styles.css">
 </head>
 <body>
-        <h1>Генератор паролів</h1>
-    <form id="generateForm" action="/generate" method="get">
-    <input type="number" id="length" value="12" min="3">
-    <input type="checkbox" id="includeLatinUppercase" checked>
-    <label for="includeLatinUppercase">Включити латинські великі літери</label><br>
-    <input type="checkbox" id="includeLatinLowercase" checked>
-    <label for="includeLatinLowercase">Включити латинські малі літери</label><br>
-    <input type="checkbox" id="includeCyrillicUppercase" checked>
-    <label for="includeCyrillicUppercase">Включити кириличні великі літери</label><br>
-    <input type="checkbox" id="includeCyrillicLowercase" checked>
-    <label for="includeCyrillicLowercase">Включити кириличні малі літери</label><br>
-    <input type="checkbox" id="includeNumbers" checked>
-    <label for="includeNumbers">Включити цифри</label><br>
-    <input type="checkbox" id="includeSymbols" checked>
-    <label for="includeSymbols">Включити символи</label><br>
-    
-    <button type="submit">Згенерувати пароль</button>
+    <h1>Генератор паролів</h1>
+    <form id="generateForm" action="/generate" method="post">
+        <input type="number" id="length" value="12" min="3">
+        <input type="checkbox" id="includeLatinUppercase" checked>
+        <label for="includeLatinUppercase">Включити латинські великі літери</label><br>
+        <input type="checkbox" id="includeLatinLowercase" checked>
+        <label for="includeLatinLowercase">Включити латинські малі літери</label><br>
+        <input type="checkbox" id="includeCyrillicUppercase" checked>
+        <label for="includeCyrillicUppercase">Включити кириличні великі літери</label><br>
+        <input type="checkbox" id="includeCyrillicLowercase" checked>
+        <label for="includeCyrillicLowercase">Включити кириличні малі літери</label><br>
+        <input type="checkbox" id="includeNumbers" checked>
+        <label for="includeNumbers">Включити цифри</label><br>
+        <input type="checkbox" id="includeSymbols" checked>
+        <label for="includeSymbols">Включити символи</label><br>
+        
+        <button type="submit">Згенерувати пароль</button>
     </form>
 
     <br>
-        <p>Ваш пароль:</p>
-        <input type="text" id="password" readonly>
-    </div>
+    <p>Ваш пароль:</p>
+    <input type="text" id="password" readonly value="<%= password %>">
 </body>
-    </html>
- 
+</html>

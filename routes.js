@@ -24,7 +24,7 @@ if (fileContent.trim() === '') {
 
 // Route for serving the input HTML page
 router.get('/', (req, res) => {
-    res.render('input'); // Render the input.html template
+  res.render('input', { password: '' }); // Render the input.html template
 });
 
 router.get('/passwords', async(req, res) => {
@@ -42,10 +42,12 @@ router.post('/generate', (req, res) => {
     const {length, includeLatinUppercase, includeLatinLowercase,
     includeNumbers,includeSymbols, includeCyrillicUppercase,includeCyrillicLowercase,letters} = req.body;
     let options = {};
+    const defaultLength = 10;
+    const passwordLength = length || defaultLength;
     if (letters){
       options = new PasswordGenerateModel({
         letters: letters,
-        length: length,
+        length: passwordLength,
       });
     }else{
       options = new PasswordGenerateModel({
@@ -55,11 +57,11 @@ router.post('/generate', (req, res) => {
       includeCyrillicLowercase: includeCyrillicLowercase,
       includeNumbers: includeNumbers,
       includeSymbols: includeSymbols,
-      length: length,
+      length: passwordLength,
       });
     }
     
-    const password = passwordGenerator.generatePassword(length, options);
+    const password = passwordGenerator.generatePassword(passwordLength, options);
     const response = {
       password,
       message: 'Password successfully generated.'

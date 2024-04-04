@@ -1,7 +1,7 @@
 Python Server 5
 MongoDB Database for passwords 7 +
     Save Password to db +
-Frontend Input 6
+Frontend Input 7
 Passwords Output 9 +
 Password Deletion 8 +
     How to do deleting? By ID
@@ -9,3 +9,4 @@ Password Model 7 +
 Undefined bug 9 +
 Custom Password 9 +
 Refactor PasswordGenerator.js 7 +
+Default passwords settings 8 +
