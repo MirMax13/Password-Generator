@@ -1,7 +1,9 @@
 Python Server 5
 MongoDB Database for passwords 7 +
     Save Password to db +
-Frontend Input 7
+Frontend Input 7 +-
+    Password Deletion 6
+    Password Output 7
 Passwords Output 9 +
 Password Deletion 8 +
     How to do deleting? By ID

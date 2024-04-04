@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
     <link rel="stylesheet" href="/public/styles.css">
+    <script src="/public/script.js"></script>
 </head>
 <body>
     <h1>Генератор паролів</h1>
-    <form id="generateForm" action="/generate" method="post">
+    <form id="generateForm" action="/generate" method="post" style="display: block;">
         <input type="number" id="length" value="12" min="3">
         <input type="checkbox" id="includeLatinUppercase" checked>
         <label for="includeLatinUppercase">Включити латинські великі літери</label><br>
@@ -22,12 +23,16 @@
         <label for="includeNumbers">Включити цифри</label><br>
         <input type="checkbox" id="includeSymbols" checked>
         <label for="includeSymbols">Включити символи</label><br>
+        <textarea id="letters" rows="4" cols="50"></textarea>
         
-        <button type="submit">Згенерувати пароль</button>
+        <button type="button" onclick="passwordGenerate(false)">Згенерувати пароль за опціями</button>
+        <button type="button" onclick="passwordGenerate(true)">Згенерувати пароль за символами</button>
     </form>
-
     <br>
     <p>Ваш пароль:</p>
-    <input type="text" id="password" readonly value="<%= password %>">
+    <input type="text" id="password">
+    <p>Де пароль використовується:</p>
+    <input type="text" id="usage">
+    <button type="button" onclick="savePassword()">Зберегти пароль</button>
 </body>
 </html>

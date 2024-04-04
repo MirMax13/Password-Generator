@@ -74,25 +74,6 @@ router.post('/generate', (req, res) => {
   }
 });
 
-router.post('/generate-custom', (req, res) => {
-  try{
-    const {length,letters} = req.body;
-    const options = new PasswordGenerateModel({
-      letters: letters,
-      length: length,
-  });
-  const password = passwordGenerator.generatePassword(length, options);
-    const response = {
-      password,
-      message: 'Password successfully generated.'
-    };
-
-    res.status(201).json(response);
-  }catch (error) {
-    res.status(500).send('Error generating password.');
-  }
-});
-
 // Route for handling password saving (implement logic here)
 router.post('/save', async(req, res) => {
   try {
@@ -104,8 +85,12 @@ router.post('/save', async(req, res) => {
       usage: usage,
     });
     await new_password.save();
-
-    res.status(201).send('Password successfully uploaded and saved to the database.');
+    const response = {
+      password,
+      usage,
+      message: 'Password successfully generated.'
+    };
+    res.status(201).json(response);
   } catch (error) {
     res.status(500).send('Error saving password to the database.');
   }
