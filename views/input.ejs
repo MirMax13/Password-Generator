@@ -33,6 +33,18 @@
     <input type="text" id="password">
     <p>Де пароль використовується:</p>
     <input type="text" id="usage">
+    <p>ID пароля:</p>
+    <input type="text" id="password_id">
     <button type="button" onclick="savePassword()">Зберегти пароль</button>
+    <button type="button" onclick="deletePassword()">Видалити пароль</button>
+    <!-- Блок для відображення списку паролів -->
+    <div class="password" id="allPasswordContainer" style="display: block;">
+        <h2>List of Passwords</h2>
+        <div class="password-columns">
+            <ul id="passwordList"></ul>
+        </div>
 </body>
+<script>
+    displayPasswordList();
+</script>
 </html>
