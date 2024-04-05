@@ -21,6 +21,7 @@ header {
 body {
   margin: 0;
   padding: 0;
+  font-size: 1.3em;
   font-family: 'Roboto', sans-serif;
   background-color: #f2f2f2;
   background-size: cover;
@@ -73,73 +74,14 @@ h1, h2, h3, h4 {
   #content ul {
     list-style-type: disc;
     padding-inline-start: 1.2em;
-    line-height: 1.6;
     margin-bottom: 1em;
     hyphens: manual;
     display: flex;
     /* Змінено на flex */
     flex-direction: column;
     /* Вертикальна орієнтація */ }
-  #content h3 {
-    color: #333;
-    margin-top: 1em;
-    padding-bottom: 0.4em;
-    position: relative;
-    /* Позиція для псевдоелемента */ }
-    #content h3::after {
-      content: "";
-      /* Контент псевдоелемента */
-      position: absolute;
-      /* Фіксування позиції псевдоелемента */
-      bottom: 0;
-      /* Позиціонувати внизу */
-      left: 0;
-      /* Почати зліва */
-      width: 2.5em;
-      /* Ширина роздільної лінії */
-      height: 0.2em;
-      background-color: #666; }
-  #content table {
-    width: 100%;
-    border-collapse: collapse; }
-    #content table th {
-      background-color: #333;
-      color: #fff; }
-    #content table td, #content table tr {
-      border: 1px solid #ddd; }
-  #content #year table {
-    /* Стилі для комірок таблиці*/
-    /* Стилі для непарних рядків таблиці*/ }
-    #content #year table th {
-      padding: 0.3em;
-      text-align: left; }
-    #content #year table td {
-      padding: 0.23em; }
-    #content #year table tr:nth-child(odd) {
-      background-color: #f2f2f2; }
-  #content #survey-results table {
-    border: 1px solid #ccc;
-    margin: 0;
-    padding: 0;
-    table-layout: fixed; }
-    #content #survey-results table caption {
-      font-size: 1.5em;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: bold;
-      color: #333;
-      margin: .5em 0 .75em; }
-    #content #survey-results table tr {
-      background-color: #f8f8f8;
-      padding: .35em; }
-    #content #survey-results table th, #content #survey-results table td {
-      padding: .625em;
-      text-align: center; }
-    #content #survey-results table th {
-      font-size: .85em;
-      letter-spacing: .1em;
-      text-transform: uppercase; }
-  #content .button {
-    background-color: #41b3b3;
+  #content button {
+    background-color: #007bff;
     border: none;
     color: white;
     padding: 1em 1.5em;
@@ -151,178 +93,34 @@ h1, h2, h3, h4 {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease; }
-  #content .button:hover {
-    background-color: #249191; }
-  #content #buttonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center; }
-  #content #moveLeftButton, #content #moveRightButton {
-    margin-top: 10px; }
-  #content #buttonContainer {
-    display: none; }
-  #content .feedback {
-    background-color: #d1e4f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 0.5em;
-    margin-top: 0.5em;
-    margin-right: 1em; }
-    #content .feedback .specificfeedback {
-      font-weight: bold;
-      margin-bottom: 5px; }
-    #content .feedback .numpartscorrect {
-      font-style: italic;
-      margin-bottom: 0.25em; }
-    #content .feedback .rightanswer p {
-      margin: 0.15em 0; }
-  #content canvas {
-    border: 1px solid #d3d3d3;
-    background-color: #f1f1f1;
-    margin-top: 1em;
-    max-width: 100%; }
-
+  #content button:hover {
+    background-color: #0056b3; }
 /* Стилі для класу*/
 p {
   line-height: 1.6; }
 
-section img {
-  max-width: 100%;
-  object-fit: contain;
-  margin: 0 auto;
-  /* Видалення відступів */
-  border: none;
-  /* Видалення рамки */
-  max-height: 100vh;
-  /* Обмеження висоти контейнера */
+label {
   display: block; }
 
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 1em;
-  text-align: center;
-  font-family: Arial, sans-serif; }
-  footer ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 1em;
-    display: flex;
-    justify-content: center;
-    /* Центрування елементів */ }
-    footer ul li {
-      display: inline;
-      margin-right: 1em; }
-      footer ul li a {
-        color: #fff;
-        text-decoration: none;
-        transition: color 0.3s ease; }
-        footer ul li a:hover {
-          color: #ddd; }
-  footer .social-icons a {
-    display: inline-block;
-    margin-right: 0.5em; }
-    footer .social-icons a img, footer .social-icons a svg {
-      width: 2em;
-      height: 2em;
-      border-radius: 50%;
-      transition: transform 0.3s ease; }
-      footer .social-icons a img:hover, footer .social-icons a svg:hover {
-        transform: scale(1.1); }
 
-iframe {
-  width: 100%;
-  display: block;
-  margin: 0 auto;
-  /* Центрування відео по горизонталі */
-  max-width: 100%; }
-
-form {
-  width: 100%; }
-
-.form-group {
-  margin-bottom: 1em;
-  width: 100%; }
-
-label {
-  display: block;
-  margin-bottom: 0.25em; }
-
+  input[type="number"]{
+    padding: 0.6em;
+    font-size: 0.8em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    text-align: center;
+  }
 input[type="text"],
-input[type="email"],
-input[type="tel"],
-select,
 textarea {
-  max-width: calc(100% - 0.5em);
-  width: 90%;
+  text-align: center;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 3em;
+  max-height: 6em;
+  width: 100%;
   padding: 0.6em;
   font-size: 0.8em;
   border-radius: 5px;
   border: 1px solid #ccc;
   box-sizing: border-box; }
-
-input[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 1em 1.25em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; }
-  input[type="submit"] :hover {
-    background-color: #45a049; }
-
-.radio-group {
-  display: flex;
-  flex-direction: row;
-  /* Горизонтальна орієнтація */ }
-  .radio-group input[type="radio"] {
-    margin-right: 10px;
-    /* Відступ між радіокнопками */ }
-
-.range-container {
-  display: flex;
-  align-items: center; }
-
-#rating {
-  width: 90%;
-  margin-right: 0.5em; }
-
-.checkbox-group {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  /* Перенесення елементів на новий рядок */
-  align-items: center; }
-  .checkbox-group input[type="checkbox"] {
-    display: none; }
-  .checkbox-group input[type="checkbox"]:checked + label {
-    background-color: #4CAF50;
-    color: white; }
-  .checkbox-group label {
-    display: inline-block;
-    padding: 0.5em 1em;
-    margin-right: 0.5em;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    cursor: pointer; }
-
-input[type="date"] {
-  width: 90%;
-  padding: 0.6em;
-  font-size: 0.8em;
-  border-radius: 5px;
-  border: 1px solid #ccc; }
-
-input[type="file"] {
-  display: flex;
-  flex-direction: column-reverse;
-  max-width: calc(100% - 10px);
-  width: 100%;
-  padding: 0.6em;
-  font-size: 0.8em;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis; }

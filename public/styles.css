@@ -12,11 +12,8 @@ h1 {
 }
 
 label {
-    display: inline-block;
-    margin-bottom: 10px;
     font-weight: bold;
     padding: 0.5em 1em;
-    margin-right: 0.5em;
     background-color: #f0f0f0;
     border-radius: 5px;
     cursor: pointer;
@@ -26,12 +23,6 @@ form {
     margin-top: 20px;
 }
 
-input[type="number"] {
-    width: 50px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
 
 input[type="checkbox"] {
     display: none;
@@ -45,30 +36,12 @@ input[type="checkbox"]:checked + label {
     background-color: #007bff;
     color: white; }
 
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
 p {
-    margin-top: 20px;
-    font-size: 18px;
+    margin-top: 1.2em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+button{
+    font-weight: bold;
 }
