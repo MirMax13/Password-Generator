@@ -33,6 +33,10 @@ app.use('/', routes);
 app.get('/public/styles.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'styles.css'));
   });
+
+  app.get('/public/styles2.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'styles2.css'));
+  });
   
   app.get('/public/script.js', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'script.js'));
