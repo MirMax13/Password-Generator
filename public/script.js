@@ -68,11 +68,20 @@ function savePassword() {
         })
         .then(data => {
             console.log('Password saved successfully:', data.password, data.usage);
-        })
-        .catch(error =>
-            {
-                console.error('Error saving password.', error);
+            Swal.fire({
+                title: "Success!",
+                text: "Password saved successfully",
+                icon: "success"
             });
+        })
+        .catch(error =>{
+            console.error('Error saving password.', error);
+            Swal.fire({
+                title: "Oops...",
+                text: "Error saving password",
+                icon: "error"
+            });
+        });
 }
 
 function displayPasswordList(){
@@ -109,7 +118,11 @@ function deletePassword(){
     const password_id = document.getElementById('password_id').value;
 
     if (!password_id){
-        alert('No password ID provided.');
+        Swal.fire({
+            title: "Oops...",
+            text: "No password ID provided",
+            icon: "warning"
+        });
         return;
     }
 
@@ -118,18 +131,36 @@ function deletePassword(){
     })
     .then(response => {
         if (response.ok) {
-          console.log('Password deleted successfully.');
-          alert('Password deleted successfully.');
+            console.log('Password deleted successfully.');
+            Swal.fire({
+                title: "Success!",
+                text: "Password deleted successfully",
+                icon: "success"
+            });
+          
         } else if (response.status === 404) {
-          console.error('Password not found.');
-          alert('Password not found.');
+            Swal.fire({
+                title: "Oops...",
+                text: "Password not found",
+                icon: "error"
+            });
+        
+            console.error('Password not found.');
         } else {
-          console.error('Error deleting password:', response.status);
-          alert('Error deleting password.');
+            console.error('Error deleting password:', response.status);
+            Swal.fire({
+                title: "Oops...",
+                text: "Error deleting password",
+                icon: "error"
+            });
         }
       })
       .catch(error => {
-        console.error('Error deleting password:', error);
-        alert('Error deleting password.');
+            console.error('Error deleting password:', error);
+            Swal.fire({
+                title: "Oops...",
+                text: "Error deleting password",
+                icon: "error"
+            });
       });
   }

@@ -6,6 +6,7 @@
     <title>Password Generator</title>
     <link rel="stylesheet" href="/public/styles.css">
     <script src="/public/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <h1>Генератор паролів</h1>
@@ -15,13 +16,13 @@
         <label for="includeLatinUppercase">Включити латинські великі літери</label><br>
         <input type="checkbox" id="includeLatinLowercase" checked>
         <label for="includeLatinLowercase">Включити латинські малі літери</label><br>
-        <input type="checkbox" id="includeCyrillicUppercase" checked>
+        <input type="checkbox" id="includeCyrillicUppercase" unchecked>
         <label for="includeCyrillicUppercase">Включити кириличні великі літери</label><br>
-        <input type="checkbox" id="includeCyrillicLowercase" checked>
+        <input type="checkbox" id="includeCyrillicLowercase" unchecked>
         <label for="includeCyrillicLowercase">Включити кириличні малі літери</label><br>
         <input type="checkbox" id="includeNumbers" checked>
         <label for="includeNumbers">Включити цифри</label><br>
-        <input type="checkbox" id="includeSymbols" checked>
+        <input type="checkbox" id="includeSymbols" unchecked>
         <label for="includeSymbols">Включити символи</label><br>
         <textarea id="letters" rows="4" cols="50"></textarea>
         
