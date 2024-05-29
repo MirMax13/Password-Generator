@@ -2,3 +2,5 @@ node_modules/
 package-lock.json
 uploads/
 db/
+.venv/
+__pycache__/
