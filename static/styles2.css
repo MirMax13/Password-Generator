@@ -1,0 +1,126 @@
+@charset "UTF-8";
+/* Загальні стилі*/
+header {
+  background-color: #41b3b3;
+  /* Колір фону */
+  color: #fff;
+  /* Колір тексту */
+  padding: 1em;
+  /* Відступи всередині header */
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  text-align: center;
+  /* Вирівнювання тексту по центру */
+  font-family: Verdana, sans-serif;
+  /* Шрифт */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Тінь */
+  border-bottom: 1px solid #555;
+  /* Рамка знизу */ }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.3em;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f2f2f2;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; }
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  /* Для заголовків використовуємо шрифт Montserrat. */ }
+
+
+.container {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  /* Можливість обгортання */ }
+
+/* Стилі для селектора по id*/
+#content {
+  max-width: 900px;
+  min-height: 76.9vh;
+  width: 70%;
+  background-color: #fff;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+  /* Стилі для кнопок */ }
+  #content h2 {
+    color: #333;
+    margin-bottom: 1rem;
+    position: relative;
+    /* Позиція для псевдоелемента */ }
+    #content h2::before {
+      content: "";
+      /* Контент псевдоелемента */
+      position: absolute;
+      /* Фіксування позиції псевдоелемента */
+      top: 0;
+      /* Початок зверху */
+      left: -0.65em;
+      width: 0.25em;
+      /* Ширина лінії */
+      height: 100%;
+      /* Висота рівна висоті батьківського елемента */
+      background-color: #666; }
+  #content ul {
+    list-style-type: disc;
+    padding-inline-start: 1.2em;
+    margin-bottom: 1em;
+    hyphens: manual;
+    display: flex;
+    /* Змінено на flex */
+    flex-direction: column;
+    /* Вертикальна орієнтація */ }
+  #content button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 1em 1.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0.25em 0.14em;
+    margin-bottom: 0.6em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; }
+  #content button:hover {
+    background-color: #0056b3; }
+/* Стилі для класу*/
+p {
+  line-height: 1.6; }
+
+label {
+  display: block; }
+
+
+  input[type="number"]{
+    padding: 0.6em;
+    font-size: 0.8em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    text-align: center;
+  }
+input[type="text"],
+textarea {
+  text-align: center;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 3em;
+  max-height: 6em;
+  width: 100%;
+  padding: 0.6em;
+  font-size: 0.8em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; }

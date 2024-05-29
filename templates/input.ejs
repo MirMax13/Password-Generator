@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="/public/styles.css">
+    <link rel="stylesheet" href="/public/styles2.css">
+    <!-- <link rel="stylesheet" href="/public/style.css"> -->
+    <script src="/public/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header>
+        <h1>Генератор паролів</h1>
+    </header>
+    <div class="container">
+    
+    <section id="content">
+    <form id="generateForm" action="/generate" method="post" style="display: block;">
+        <input type="number" id="length" value="12" min="3">
+        <input type="checkbox" id="includeLatinUppercase" checked>
+        <label for="includeLatinUppercase">Включити латинські великі літери</label><br>
+        <input type="checkbox" id="includeLatinLowercase" checked>
+        <label for="includeLatinLowercase">Включити латинські малі літери</label><br>
+        <input type="checkbox" id="includeCyrillicUppercase" unchecked>
+        <label for="includeCyrillicUppercase">Включити кириличні великі літери</label><br>
+        <input type="checkbox" id="includeCyrillicLowercase" unchecked>
+        <label for="includeCyrillicLowercase">Включити кириличні малі літери</label><br>
+        <input type="checkbox" id="includeNumbers" checked>
+        <label for="includeNumbers">Включити цифри</label><br>
+        <input type="checkbox" id="includeSymbols" unchecked>
+        <label for="includeSymbols">Включити символи</label><br>
+        <textarea id="letters" rows="4" cols="50"></textarea>
+        <button type="button" onclick="passwordGenerate(false)">Згенерувати пароль за опціями</button>
+        <button type="button" onclick="passwordGenerate(true)">Згенерувати пароль за символами</button>
+    </form>
+    <br>
+    <p>Ваш пароль:</p>
+    <input type="text" id="password">
+    <p>Де пароль використовується:</p>
+    <input type="text" id="usage">
+    <p>ID пароля:</p>
+    <input type="text" id="password_id">
+    <button type="button" onclick="savePassword()">Зберегти пароль</button>
+    <button type="button" onclick="deletePassword()">Видалити пароль</button>
+    <!-- Блок для відображення списку паролів -->
+    <div class="password" id="allPasswordContainer" style="display: block;">
+        <h2>List of Passwords</h2>
+        <div class="password-columns">
+            <ul id="passwordList"></ul>
+        </div>
+    </section>
+    </div>
+</body>
+<script>
+    displayPasswordList();
+</script>
+</html>
