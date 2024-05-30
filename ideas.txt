@@ -1,4 +1,4 @@
-Python Server 5
+Python Server 5 +
 MongoDB Database for passwords 7 +
     Save Password to db +
 Frontend Input 7 +-
@@ -12,3 +12,4 @@ Undefined bug 9 +
 Custom Password 9 +
 Refactor PasswordGenerator.js 7 +
 Default passwords settings 8 +
+React Frontend 4
