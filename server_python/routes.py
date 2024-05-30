@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, url_for
-from db import db
-from password_generate_model import PasswordGenerateModel
-from flask import jsonify
-from password_generator import generate_password
+from flask import Blueprint, render_template, request, url_for,jsonify
+from server_python.db import db
+from server_python.password_generate_model import PasswordGenerateModel
+from server_python.password_generator import generate_password
 from bson.objectid import ObjectId
 
 
@@ -10,8 +9,8 @@ router = Blueprint('router', __name__)
 
 @router.get("/")
 def input():
-    url_for('static', filename='style.css')
-    url_for('static', filename='style2.css')
+    url_for('static', filename='../static/style.css')
+    url_for('static', filename='../static/style2.css')
     return render_template("input.ejs")
 
 @router.get("/passwords")

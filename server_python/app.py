@@ -1,8 +1,8 @@
 
 from flask import Flask
-from routes import router
+from server_python.routes import router
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.register_blueprint(router)
 
 # Error handling
