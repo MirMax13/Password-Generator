@@ -12,7 +12,6 @@ router = Blueprint('router', __name__)
 def input():
     url_for('static', filename='style.css')
     url_for('static', filename='style2.css')
-    url_for('static', filename='script.css')
     return render_template("input.ejs")
 
 @router.get("/passwords")
@@ -83,5 +82,6 @@ def delete_password(password_id):
 
 @router.errorhandler(404)
 def page_not_found(e):
+    print(e)
     return render_template('input.ejs'), 404
 

@@ -1,13 +1,9 @@
 
-from flask import Flask, send_from_directory
+from flask import Flask
 from routes import router
 
 app = Flask(__name__)
 app.register_blueprint(router)
-
-@app.route('/static/<path:filename>')
-def static_file(filename):
-    return send_from_directory('./static', filename)
 
 # Error handling
 @app.errorhandler(500)
