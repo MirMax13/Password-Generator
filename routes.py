@@ -1,38 +1,87 @@
-from flask import Flask
-from markupsafe import escape
-from flask import render_template
-from flask import request
-from flask import url_for
-
-app = Flask(__name__)
-
+from flask import Blueprint, render_template, request, url_for
+from db import db
+from password_generate_model import PasswordGenerateModel
+from flask import jsonify
+from password_generator import generate_password
+from bson.objectid import ObjectId
 
 
-@app.get("/")
+router = Blueprint('router', __name__)
+
+@router.get("/")
 def input():
     url_for('static', filename='style.css')
     url_for('static', filename='style2.css')
     url_for('static', filename='script.css')
     return render_template("input.ejs")
 
-@app.get("/passwords")
+@router.get("/passwords")
 def passwords():
-    return "<p>Here are all the passwords: 1234, 5678, 9012</p>"
+    try:
+        passwords_collection = db['passwords']
+        passwords = [{'_id': str(password['_id']), 'password': password['password'], 'usage': password['usage']} for password in passwords_collection.find()]
+        return jsonify(passwords)
+    except Exception as e:
+        return str(e)
 
-@app.post("/generate")
+@router.post("/generate")
 def generate():
-    return "<p>Generating passwords...</p>"
+    try:
+        data = request.json
+        length = int(data.get('length', 10))
+        letters = data.get('letters', None)
+        if letters:
+            options = PasswordGenerateModel(letters=letters, length=length)
+        else:
+            options = PasswordGenerateModel(
+                include_latin_uppercase=data.get('includeLatinUppercase', False),
+                include_latin_lowercase=data.get('includeLatinLowercase', False),
+                include_cyrillic_uppercase=data.get('includeCyrillicUppercase', False),
+                include_cyrillic_lowercase=data.get('includeCyrillicLowercase', False),
+                include_numbers=data.get('includeNumbers', False),
+                include_symbols=data.get('includeSymbols', False),
+                length=length
+            )
+        password = generate_password(length, options)
+        response = {
+            'password': password,
+            'message': 'Password successfully generated.'
+        }
+        return jsonify(response), 201
+    except Exception as e:
+        print(e)
+        return 'Error generating password', 500
 
-@app.post("/save")
+
+@router.post("/save")
 def save():
-    file = request.files['file']
-    file.save(f"uploads/{file.filename}")
+    try:
+        data = request.json
+        password = data.get('password', None)
+        usage = data.get('usage', 'Unknown')
+        passwords_collection = db['passwords']
+        passwords_collection.insert_one({'password': password, 'usage': usage})
+        response = {
+            'password': password,
+            'usage': usage,
+            'message': 'Password successfully saved.'
+        }
+        return jsonify(response), 201
+    except Exception as e:
+        print(e)
+        return 'Error saving password to the database', 500
 
-@app.delete("/password/<int:password_id>")
+@router.delete("/password/<password_id>")
 def delete_password(password_id):
-    return f"<p>Deleting password with id {escape(password_id)}...</p>"
+    try:
+        passwords_collection = db['passwords']
+        passwords_collection.delete_one({'_id': ObjectId(password_id)})
+        return 'Password successfully deleted.', 200
+    except Exception as e:
+        print(e)
+        return 'Error deleting password', 500
 
-@app.errorhandler(404)
-def page_not_found(error):
+@router.errorhandler(404)
+def page_not_found(e):
     return render_template('input.ejs'), 404
 

@@ -1,21 +1,19 @@
-import pymongo
-import http.server
-import socketserver
-from flask import url_for
 
-handler = http.server.SimpleHTTPRequestHandler
+from flask import Flask, send_from_directory
+from routes import router
 
-hostName = "localhost"
-port = 3000
+app = Flask(__name__)
+app.register_blueprint(router)
 
-httpd = socketserver.TCPServer(("", port), handler)
+@app.route('/static/<path:filename>')
+def static_file(filename):
+    return send_from_directory('./static', filename)
 
-print(f"Server listening on port {port}")
-httpd.serve_forever()
+# Error handling
+@app.errorhandler(500)
+def server_error(e):
+    print(e)
+    return 'Something went wrong!', 500
 
-myclient = pymongo.MongoClient('mongodb://localhost:27017/')
-mydb = myclient['mydatabase']
-
-url_for('static', filename='style.css')
-url_for('static', filename='style2.css')
-url_for('static', filename='script.css')
+if __name__ == "__main__":
+    app.run(debug=True)
