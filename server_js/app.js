@@ -23,7 +23,7 @@ db.once('open', async () => {
 
 // Налаштування шаблонізатора та шляхів для статичних файлів
 app.set('view engine', 'ejs');
-app.set('template', path.join(__dirname, 'template'));
+app.set('views', path.join(__dirname, '../templates'));
 app.use(express.static(path.join(__dirname, 'static')));
 
 // Mount routes
@@ -31,17 +31,17 @@ app.use('/', routes);
 
 // Обробка статичних файлів
 app.get('/static/styles.css', (req, res) => {
-    res.sendFile(path.join(__dirname, 'static', 'styles.css'));
+    res.sendFile(path.join(__dirname, '../static', 'styles.css'));
   });
 
   app.get('/static/styles2.css', (req, res) => {
-    res.sendFile(path.join(__dirname, 'static', 'styles2.css'));
+    res.sendFile(path.join(__dirname, '../static', 'styles2.css'));
   });
   
   app.get('/static/script.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'static', 'script.js'));
+    res.sendFile(path.join(__dirname, '../static', 'script.js'));
   });
-
+// 
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
