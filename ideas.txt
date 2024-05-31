@@ -13,3 +13,6 @@ Custom Password 9 +
 Refactor PasswordGenerator.js 7 +
 Default passwords settings 8 +
 React Frontend 4
+FavIcon 3 +
+undefined in JS console 6
+FavIcon error in JS Browser console 5 +

@@ -58,16 +58,17 @@ function savePassword() {
             usage: usage,
         }),
     })
-        .then(response =>{
+        .then(async response => {
             if (response.ok) {
-                return response.json(); // Повертаємо об'єкт JSON відповіді
-            }
-            else{
-                console.error('Error saving password.', response.status);
+                return response.json();
+            } else {
+                const error = await response.json();
+                throw new Error(error.error);
             }
         })
         .then(data => {
             console.log('Password saved successfully:', data.password, data.usage);
+            displayPasswordList();
             Swal.fire({
                 title: "Success!",
                 text: "Password saved successfully",
@@ -78,7 +79,7 @@ function savePassword() {
             console.error('Error saving password.', error);
             Swal.fire({
                 title: "Oops...",
-                text: "Error saving password",
+                text: error.message,
                 icon: "error"
             });
         });
@@ -86,7 +87,7 @@ function savePassword() {
 
 function displayPasswordList(){
     const passwordList = document.getElementById('passwordList');
-
+    passwordList.innerHTML = '';
     fetch('/passwords')
         .then(response =>response.json())
         .then(data => {
@@ -132,6 +133,7 @@ function deletePassword(){
     .then(response => {
         if (response.ok) {
             console.log('Password deleted successfully.');
+            displayPasswordList()
             Swal.fire({
                 title: "Success!",
                 text: "Password deleted successfully",

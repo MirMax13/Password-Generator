@@ -1,0 +1,7 @@
+Python:
+.venv\Scripts\activate
+$env:FLASK_APP = "server_python/app"
+flask run --debug
+
+JS:
+npm run dev
