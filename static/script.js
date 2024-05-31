@@ -68,6 +68,7 @@ function savePassword() {
         })
         .then(data => {
             console.log('Password saved successfully:', data.password, data.usage);
+            displayPasswordList();
             Swal.fire({
                 title: "Success!",
                 text: "Password saved successfully",
@@ -86,7 +87,7 @@ function savePassword() {
 
 function displayPasswordList(){
     const passwordList = document.getElementById('passwordList');
-
+    passwordList.innerHTML = '';
     fetch('/passwords')
         .then(response =>response.json())
         .then(data => {
@@ -132,6 +133,7 @@ function deletePassword(){
     .then(response => {
         if (response.ok) {
             console.log('Password deleted successfully.');
+            displayPasswordList()
             Swal.fire({
                 title: "Success!",
                 text: "Password deleted successfully",
