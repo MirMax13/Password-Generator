@@ -58,12 +58,12 @@ function savePassword() {
             usage: usage,
         }),
     })
-        .then(response =>{
+        .then(async response => {
             if (response.ok) {
-                return response.json(); // Повертаємо об'єкт JSON відповіді
-            }
-            else{
-                console.error('Error saving password.', response.status);
+                return response.json();
+            } else {
+                const error = await response.json();
+                throw new Error(error.error);
             }
         })
         .then(data => {
@@ -78,7 +78,7 @@ function savePassword() {
             console.error('Error saving password.', error);
             Swal.fire({
                 title: "Oops...",
-                text: "Error saving password",
+                text: error.message,
                 icon: "error"
             });
         });

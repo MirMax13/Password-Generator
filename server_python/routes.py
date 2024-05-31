@@ -56,7 +56,9 @@ def save():
     try:
         data = request.json
         password = data.get('password', None)
-        usage = data.get('usage', 'Unknown')
+        usage = data.get('usage') if data.get('usage', None) else 'Unknown'
+        if not password:
+            return jsonify({'error': 'No password provided'}), 400
         passwords_collection = db['passwords']
         passwords_collection.insert_one({'password': password, 'usage': usage})
         response = {
@@ -67,7 +69,7 @@ def save():
         return jsonify(response), 201
     except Exception as e:
         print(e)
-        return 'Error saving password to the database', 500
+        return jsonify({'error': 'Error saving password to the database'}), 500
 
 @router.delete("/password/<password_id>")
 def delete_password(password_id):

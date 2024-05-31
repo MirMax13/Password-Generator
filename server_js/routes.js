@@ -79,11 +79,14 @@ router.post('/save', async(req, res) => {
   try {
     const password = req.body.password;
     const usage = req.body.usage || 'Unknown';
-
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required.' });
+    }
     const new_password = new PasswordSaveModel({
       password: password,
       usage: usage,
     });
+  
     await new_password.save();
     const response = {
       password,
