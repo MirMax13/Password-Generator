@@ -6,7 +6,7 @@ const routes = require('./routes'); // Import routes from routes.js
 
 const app = express();
 app.use(bodyParser.json());
-const port = 3000;
+const port = 5000;
 
 mongoose.connect('mongodb://127.0.0.1:27017/mydatabase', {
 });
@@ -37,6 +37,9 @@ app.get('/static/styles.css', (req,res) => {
   app.get('/static/script.js', (req,res) => {
     res.sendFile(path.join(__dirname, '../static', 'script.js'));
   });
+app.get('/static/favicon.svg', (req, res) => {
+    res.sendFile(path.join(__dirname, '../static', 'favicon.svg'));
+});
 // 
 // Error handling middleware
 app.use((err, res) => {
