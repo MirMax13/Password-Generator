@@ -23,16 +23,16 @@ if (fileContent.trim() === '') {
 }
 
 // Route for serving the input HTML page
-router.get('/', (res) => {
+router.get('/', (req, res) => {
   res.render('input', { password: '' }); // Render the input.html template
 });
 
-router.get('/passwords', async(res) => {
+router.get('/passwords', async(req, res) => {
   try {
     const passwords = await  PasswordSaveModel.find({});
     res.json(passwords);
   } catch (error) {
-    res.status(500).send('Error fetching passwords.');
+    res.status(500).send('Error fetching passwords from the database.');
   }
 });
 
