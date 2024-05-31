@@ -5,6 +5,6 @@ const passwordSaveSchema = new mongoose.Schema({
     usage: String,
 });
 
-const PasswordSaveModel = mongoose.model('PasswordSave', passwordSaveSchema);
+const PasswordSaveModel = mongoose.model('Passwords', passwordSaveSchema);
 
 module.exports = PasswordSaveModel;
