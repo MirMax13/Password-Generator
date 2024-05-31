@@ -17,22 +17,22 @@ const filePath = path.join(uploadsPath, 'passwords.json');
 if (!fs.existsSync(path.join(uploadsPath, 'passwords.json'))) {
   fs.writeFileSync(path.join(uploadsPath, 'passwords.json'), '[]', 'utf8');
 }
-fileContent = fs.readFileSync(filePath, 'utf8');
+let fileContent = fs.readFileSync(filePath, 'utf8');
 if (fileContent.trim() === '') {
   fs.writeFileSync(filePath, '[]', 'utf8');
 }
 
 // Route for serving the input HTML page
-router.get('/', (req, res) => {
+router.get('/', (res) => {
   res.render('input', { password: '' }); // Render the input.html template
 });
 
-router.get('/passwords', async(req, res) => {
+router.get('/passwords', async(res) => {
   try {
     const passwords = await  PasswordSaveModel.find({});
     res.json(passwords);
   } catch (error) {
-    res.status(500).send('Помилка отримання списку GIFs');
+    res.status(500).send('Error fetching passwords.');
   }
 });
 

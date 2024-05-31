@@ -1,4 +1,3 @@
-
 function generatePassword(length, options) {
     let charset = "";
     let password = "";
