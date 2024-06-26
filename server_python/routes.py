@@ -71,6 +71,34 @@ def save():
         print(e)
         return jsonify({'error': 'Error saving password to the database'}), 500
 
+@router.post("/save-100-million")
+def save_100_million():
+    try:
+        data = request.json
+        length = int(data.get('length', 10))
+        batch_size = 10000  
+        total_passwords = 100000000
+        passwords_collection = db['passwords']
+        options = PasswordGenerateModel(
+                include_latin_uppercase=True,
+                include_latin_lowercase=True,
+                include_cyrillic_uppercase=False,
+                include_cyrillic_lowercase=False,
+                include_numbers=True,
+                include_symbols=True,
+                length=length
+            )
+        for _ in range(total_passwords // batch_size):
+            batch = []
+            for _ in range(batch_size):
+                password = generate_password(length, options)
+                batch.append({"password": password,'usage': 'Unknown'})
+            passwords_collection.insert_many(batch)
+
+        return jsonify({'message': '100 million passwords successfully generated.'}), 201
+    except Exception as e:
+        return jsonify({'error': 'Error generating 100 million passwords', 'details': str(e)}), 500
+
 @router.delete("/password/<password_id>")
 def delete_password(password_id):
     try:
